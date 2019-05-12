@@ -2,15 +2,14 @@ package com.javaguru.todolist.service.validation;
 
 import com.javaguru.todolist.domain.Task;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class TaskValidationService {
 
-    private Set<TaskValidationRule> validationRules = new HashSet<>();
+    private final Set<TaskValidationRule> validationRules;
 
-    public TaskValidationService() {
-        validationRules.add(new TaskNameValidationRule());
+    public TaskValidationService(Set<TaskValidationRule> validationRules) {
+        this.validationRules = validationRules;
     }
 
     public void validate(Task task) {

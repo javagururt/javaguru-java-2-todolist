@@ -4,19 +4,32 @@ import com.javaguru.todolist.domain.Task;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class TaskInMemoryRepository {
 
     private Long taskIdSequence = 0L;
     private Map<Long, Task> tasks = new HashMap<>();
 
-    public Task insert(Task task) {
+    public Task save(Task task) {
         task.setId(taskIdSequence++);
         tasks.put(task.getId(), task);
         return task;
     }
 
-    public Task findTaskById(Long id) {
-        return tasks.get(id);
+    public Optional<Task> findTaskById(Long id) {
+        return Optional.ofNullable(tasks.get(id));
     }
+
+    public boolean existsByName(String name) {
+        return tasks.values().stream()
+                .anyMatch(task -> task.getName().equalsIgnoreCase(name));
+    }
+
+    public Optional<Task> findTaskByName(String name) {
+        return tasks.values().stream()
+                .filter(task -> task.getName().equalsIgnoreCase(name))
+                .findFirst();
+    }
+
 }

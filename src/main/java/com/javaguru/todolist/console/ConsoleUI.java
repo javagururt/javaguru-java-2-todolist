@@ -7,7 +7,11 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
-    private TaskService taskService = new TaskService();
+    private final TaskService taskService;
+
+    public ConsoleUI(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     public void execute() {
         while (true) {

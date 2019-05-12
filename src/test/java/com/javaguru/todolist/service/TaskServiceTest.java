@@ -11,7 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -31,17 +36,35 @@ public class TaskServiceTest {
     private ArgumentCaptor<Task> taskCaptor;
 
     @Test
-    public void shouldCreateTaskSuccessfully() {
+    public void shouldCreateTask() {
         Task task = task();
-        when(repository.insert(task)).thenReturn(task);
+        when(repository.save(task)).thenReturn(task);
 
         Long result = victim.createTask(task);
 
         verify(validationService).validate(taskCaptor.capture());
         Task captorResult = taskCaptor.getValue();
 
-        assertEquals(captorResult, task);
-        assertEquals(task.getId(), result);
+        assertThat(captorResult).isEqualTo(task);
+        assertThat(task.getId()).isEqualTo(result);
+    }
+
+    @Test
+    public void shouldFindTaskById() {
+        when(repository.findTaskById(1001L)).thenReturn(Optional.ofNullable(task()));
+
+        Task result = victim.findTaskById(1001L);
+
+        assertThat(result).isEqualTo(task());
+    }
+
+    @Test
+    public void shouldThrowExceptionTaskNotFound() {
+        when(repository.findTaskById(any())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> victim.findTaskById(1001L))
+                .isInstanceOf(NoSuchElementException.class)
+                .hasMessage("Task not found, id: 1001");
     }
 
     private Task task() {
