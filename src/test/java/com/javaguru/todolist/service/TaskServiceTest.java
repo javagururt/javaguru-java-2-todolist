@@ -34,7 +34,7 @@ public class TaskServiceTest {
     private TaskService victim;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         victim = new TaskService(repository, validationService);
     }
 
