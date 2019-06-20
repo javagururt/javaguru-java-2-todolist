@@ -36,7 +36,7 @@ public class ConsoleUI {
                         return;
                 }
             } catch (Exception e) {
-                System.out.println("Error! Please try again.");
+                e.printStackTrace();
             }
         }
     }

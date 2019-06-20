@@ -1,7 +1,7 @@
 package com.javaguru.todolist.service;
 
 import com.javaguru.todolist.domain.Task;
-import com.javaguru.todolist.repository.TaskInMemoryRepository;
+import com.javaguru.todolist.repository.TaskRepository;
 import com.javaguru.todolist.service.validation.TaskValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaskService {
 
-    private final TaskInMemoryRepository repository;
+    private final TaskRepository repository;
     private final TaskValidationService validationService;
 
     @Autowired
-    public TaskService(TaskInMemoryRepository repository,
+    public TaskService(TaskRepository repository,
                        TaskValidationService validationService) {
         this.repository = repository;
         this.validationService = validationService;
