@@ -1,11 +1,13 @@
 package com.javaguru.todolist.service.validation;
 
 import com.javaguru.todolist.domain.Task;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Component
+@Service
 public class TaskValidationService {
 
     private final Set<TaskValidationRule> validationRules;

@@ -10,6 +10,6 @@ public class ToDoListApplication {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ConsoleUI console = context.getBean(ConsoleUI.class);
-        console.execute();
+        console.start();
     }
 }

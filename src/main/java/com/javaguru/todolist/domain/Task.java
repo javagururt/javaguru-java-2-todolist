@@ -1,11 +1,21 @@
 package com.javaguru.todolist.domain;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tasks")
 public class Task {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
     private String description;
 
     public Long getId() {
@@ -44,7 +54,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, name, description);
     }
 
