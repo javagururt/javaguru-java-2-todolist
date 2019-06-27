@@ -5,6 +5,7 @@ import com.javaguru.todolist.repository.TaskRepository;
 import com.javaguru.todolist.service.validation.TaskValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class TaskService {
@@ -19,6 +20,7 @@ public class TaskService {
         this.validationService = validationService;
     }
 
+    @Transactional
     public Long createTask(Task task) {
         validationService.validate(task);
         Task createdTask = repository.save(task);

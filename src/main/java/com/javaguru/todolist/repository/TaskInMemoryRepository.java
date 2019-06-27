@@ -3,12 +3,13 @@ package com.javaguru.todolist.repository;
 import com.javaguru.todolist.domain.Task;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
+@Repository
 @Profile("inmemorydb")
 public class TaskInMemoryRepository implements TaskRepository {
 

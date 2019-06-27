@@ -7,21 +7,21 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
-@Component
-@Profile({"local", "dev"})
-class DefaultTaskRepository implements TaskRepository {
+@Repository
+@Profile("jdbc")
+class JdbcTaskRepository implements TaskRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    DefaultTaskRepository(JdbcTemplate jdbcTemplate) {
+    JdbcTaskRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -58,12 +58,14 @@ class DefaultTaskRepository implements TaskRepository {
     public boolean existsByName(String name) {
         String query = "SELECT CASE WHEN count(*)> 0 " +
                 "THEN true ELSE false END " +
-                "FROM tasks t where t.name=" + name;
+                "FROM tasks where name=" + name;
         return jdbcTemplate.queryForObject(query, Boolean.class);
     }
 
     @Override
     public Optional<Task> findTaskByName(String name) {
-        return Optional.empty();
+        String query = "select * from tasks where name=" + name;
+        return jdbcTemplate.query(query, new BeanPropertyRowMapper(Task.class)).stream()
+                .findFirst();
     }
 }
