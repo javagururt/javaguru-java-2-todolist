@@ -2,6 +2,7 @@ package com.javaguru.todolist.console;
 
 import com.javaguru.todolist.console.action.Action;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class ConsoleUI {
 
     private final List<Action> actions;
 
-    public ConsoleUI(List<Action> actions) {
+    public ConsoleUI( List<Action> actions) {
         this.actions = actions;
     }
 

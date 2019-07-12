@@ -1,6 +1,7 @@
 package com.javaguru.todolist.service;
 
 import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.domain.User;
 import com.javaguru.todolist.repository.TaskRepository;
 import com.javaguru.todolist.service.validation.TaskValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,9 @@ public class TaskService {
     }
 
     @Transactional
-    public Long createTask(Task task) {
+    public Task createTask(Task task) {
         validationService.validate(task);
-        Task createdTask = repository.save(task);
-        return createdTask.getId();
+        return repository.save(task);
     }
 
     public Task findTaskById(Long id) {

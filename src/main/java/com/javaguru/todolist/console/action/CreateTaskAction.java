@@ -3,7 +3,6 @@ package com.javaguru.todolist.console.action;
 import com.javaguru.todolist.domain.Task;
 import com.javaguru.todolist.service.TaskService;
 import com.javaguru.todolist.service.validation.TaskValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -31,7 +30,7 @@ public class CreateTaskAction implements Action {
         task.setName(name);
         task.setDescription(description);
         try {
-            Long response = taskService.createTask(task);
+            Task response = taskService.createTask(task);
             System.out.println("Response: " + response);
         } catch (TaskValidationException e) {
             System.out.println(e.getMessage());

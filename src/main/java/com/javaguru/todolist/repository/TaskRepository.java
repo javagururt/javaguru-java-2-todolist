@@ -8,6 +8,8 @@ public interface TaskRepository {
 
     Task save(Task task);
 
+    void update(Task task);
+
     Optional<Task> findTaskById(Long id);
 
     boolean existsByName(String name);
