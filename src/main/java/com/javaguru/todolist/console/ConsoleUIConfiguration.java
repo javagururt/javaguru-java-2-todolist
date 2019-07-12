@@ -11,26 +11,30 @@ import java.util.List;
 @Configuration
 class ConsoleUIConfiguration {
 
-    private final Action createTaskAction;
-    private final Action findTaskByIdAction;
-    private final Action exitAction;
+    @Autowired
+    private Action createTaskAction;
 
     @Autowired
-    public ConsoleUIConfiguration(Action createTaskAction,
-                                  Action findTaskByIdAction,
-                                  Action exitAction) {
-        this.createTaskAction = createTaskAction;
-        this.findTaskByIdAction = findTaskByIdAction;
-        this.exitAction = exitAction;
-    }
+    private Action findTaskByIdAction;
 
+    @Autowired
+    private Action exitAction;
+
+    @Autowired
+    private Action createUserAction;
+
+    @Autowired
+    private Action assignTaskAction;
 
     @Bean
     ConsoleUI consoleUI() {
         List<Action> actions = new ArrayList<>();
         actions.add(createTaskAction);
         actions.add(findTaskByIdAction);
+        actions.add(createUserAction);
+        actions.add(assignTaskAction);
         actions.add(exitAction);
         return new ConsoleUI(actions);
     }
+
 }

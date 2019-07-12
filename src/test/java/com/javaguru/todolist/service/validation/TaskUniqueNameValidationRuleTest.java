@@ -1,7 +1,7 @@
 package com.javaguru.todolist.service.validation;
 
 import com.javaguru.todolist.domain.Task;
-import com.javaguru.todolist.repository.TaskInMemoryRepository;
+import com.javaguru.todolist.repository.TaskRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class TaskUniqueNameValidationRuleTest {
 
     @Mock
-    private TaskInMemoryRepository taskInMemoryRepository;
+    private TaskRepository taskInMemoryRepository;
 
     @Spy
     @InjectMocks

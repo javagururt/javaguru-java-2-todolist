@@ -6,7 +6,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,6 +27,10 @@ class HibernateTaskRepository implements TaskRepository {
     public Task save(Task task) {
         sessionFactory.getCurrentSession().save(task);
         return task;
+    }
+
+    public void update(Task task) {
+        sessionFactory.getCurrentSession().update(task);
     }
 
     @Override
