@@ -1,8 +1,7 @@
 package com.javaguru.todolist.service;
 
-import com.javaguru.todolist.domain.Task;
 import com.javaguru.todolist.domain.User;
-import com.javaguru.todolist.repository.HibernateUserRepository;
+import com.javaguru.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +10,10 @@ import java.util.NoSuchElementException;
 @Component
 public class UserService {
 
-    private final HibernateUserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(HibernateUserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -27,9 +26,4 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchElementException("User not found, id: " + userId));
     }
 
-    public void addTaskToUser(Task task, Long userId) {
-        User user = findUserById(userId);
-        user.getTasks().add(task);
-        userRepository.update(user);
-    }
 }

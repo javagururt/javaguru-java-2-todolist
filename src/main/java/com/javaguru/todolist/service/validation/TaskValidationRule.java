@@ -1,13 +1,13 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.dto.TaskDto;
 
 public interface TaskValidationRule {
 
-    void validate(Task task);
+    void validate(TaskDto taskDto);
 
-    default void checkNotNull(Task task) {
-        if (task == null) {
+    default void checkNotNull(TaskDto taskDto) {
+        if (taskDto == null) {
             throw new TaskValidationException("Task must be not null");
         }
     }

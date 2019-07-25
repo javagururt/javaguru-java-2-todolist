@@ -1,6 +1,6 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.dto.TaskDto;
 import com.javaguru.todolist.repository.TaskRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,41 +17,41 @@ import static org.mockito.Mockito.when;
 public class TaskUniqueNameValidationRuleTest {
 
     @Mock
-    private TaskRepository taskInMemoryRepository;
+    private TaskRepository hibernateTaskRepository;
 
     @Spy
     @InjectMocks
     private TaskUniqueNameValidationRule victim;
 
-    private Task task = task();
+    private TaskDto taskDto = taskDto();
 
     @Test
     public void shouldThrowException() {
-        when(taskInMemoryRepository.existsByName(task.getName()))
+        when(hibernateTaskRepository.existsByName(taskDto.getName()))
                 .thenReturn(true);
 
-        assertThatThrownBy(() -> victim.validate(task))
+        assertThatThrownBy(() -> victim.validate(taskDto))
                 .isInstanceOf(TaskValidationException.class)
                 .hasMessage("Task name must be unique.");
 
-        verify(victim).checkNotNull(task);
+        verify(victim).checkNotNull(taskDto);
     }
 
     @Test
     public void shouldValidateSuccess() {
-        when(taskInMemoryRepository.existsByName(task.getName()))
+        when(hibernateTaskRepository.existsByName(taskDto.getName()))
                 .thenReturn(false);
 
-        victim.validate(task);
+        victim.validate(taskDto);
 
-        verify(victim).checkNotNull(task);
+        verify(victim).checkNotNull(taskDto);
     }
 
-    private Task task() {
-        Task task = new Task();
-        task.setId(123L);
-        task.setDescription("TEST_DESCRIPTION");
-        task.setName("TEST_NAME");
-        return task;
+    private TaskDto taskDto() {
+        TaskDto taskDto = new TaskDto();
+        taskDto.setId(123L);
+        taskDto.setDescription("TEST_DESCRIPTION");
+        taskDto.setName("TEST_NAME");
+        return taskDto;
     }
 }
