@@ -1,6 +1,6 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.dto.TaskDto;
 import com.javaguru.todolist.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,9 @@ public class TaskUniqueNameValidationRule implements TaskValidationRule {
     }
 
     @Override
-    public void validate(Task task) {
-        checkNotNull(task);
-        if (repository.existsByName(task.getName())) {
+    public void validate(TaskDto taskDto) {
+        checkNotNull(taskDto);
+        if (repository.existsByName(taskDto.getName())) {
             throw new TaskValidationException("Task name must be unique.");
         }
     }

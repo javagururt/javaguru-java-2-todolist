@@ -1,6 +1,6 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.dto.TaskDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
@@ -15,11 +15,11 @@ public class TaskNameValidationRuleTest {
     @Spy
     private TaskNameValidationRule victim;
 
-    private Task input;
+    private TaskDto input;
 
     @Test
     public void shouldThrowTaskValidationException() {
-        input = task(null);
+        input = taskDto(null);
 
         assertThatThrownBy(() -> victim.validate(input))
                 .isInstanceOf(TaskValidationException.class)
@@ -29,17 +29,17 @@ public class TaskNameValidationRuleTest {
 
     @Test
     public void shouldValidateSuccess() {
-        input = task("valid name");
+        input = taskDto("valid name");
 
         victim.validate(input);
 
         verify(victim).checkNotNull(input);
     }
 
-    private Task task(String name) {
-        Task task = new Task();
-        task.setName(name);
-        return task;
+    private TaskDto taskDto(String name) {
+        TaskDto taskDto = new TaskDto();
+        taskDto.setName(name);
+        return taskDto;
     }
 
 }
