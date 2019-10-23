@@ -1,6 +1,6 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.dto.TaskDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,11 +26,11 @@ public class TaskValidationServiceTest {
     private TaskNameValidationRule taskNameValidationRule;
 
     @Captor
-    private ArgumentCaptor<Task> captor;
+    private ArgumentCaptor<TaskDto> captor;
 
     private TaskValidationService victim;
 
-    private Task task = task();
+    private TaskDto taskDto = taskDto();
 
     @Before
     public void setUp() {
@@ -43,20 +43,20 @@ public class TaskValidationServiceTest {
 
     @Test
     public void shouldValidate() {
-        victim.validate(task);
+        victim.validate(taskDto);
 
         verify(uniqueNameValidationRule).validate(captor.capture());
         verify(taskNameValidationRule).validate(captor.capture());
 
-        List<Task> resultList = captor.getAllValues();
-        assertThat(resultList).containsOnly(task);
+        List<TaskDto> resultList = captor.getAllValues();
+        assertThat(resultList).containsOnly(taskDto);
     }
 
-    private Task task() {
-        Task task = new Task();
-        task.setId(100L);
-        task.setDescription("TEST_DESCRIPTION");
-        task.setName("TEST_NAME");
-        return task;
+    private TaskDto taskDto() {
+        TaskDto taskDto = new TaskDto();
+        taskDto.setId(100L);
+        taskDto.setDescription("TEST_DESCRIPTION");
+        taskDto.setName("TEST_NAME");
+        return taskDto;
     }
 }

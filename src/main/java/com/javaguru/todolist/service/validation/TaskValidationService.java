@@ -1,7 +1,6 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
-import org.springframework.stereotype.Component;
+import com.javaguru.todolist.dto.TaskDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -15,8 +14,8 @@ public class TaskValidationService {
         this.validationRules = validationRules;
     }
 
-    public void validate(Task task) {
-        validationRules.forEach(s -> s.validate(task));
+    public void validate(TaskDto taskDto) {
+        validationRules.forEach(s -> s.validate(taskDto));
     }
 
 }

@@ -1,6 +1,6 @@
 package com.javaguru.todolist.service.validation;
 
-import com.javaguru.todolist.domain.Task;
+import com.javaguru.todolist.dto.TaskDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
@@ -24,9 +24,9 @@ public class TaskValidationRuleTest {
 
     @Test
     public void shouldCheckNotNull() {
-        Task task = new Task();
+        TaskDto taskDto = new TaskDto();
 
-        victim.checkNotNull(task);
+        victim.checkNotNull(taskDto);
     }
 
 }
